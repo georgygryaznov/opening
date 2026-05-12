@@ -1,2 +1,11 @@
-# Ignore local history folder
+# Ignore local history folder (old versions of BRD files)
 BRD/history/
+
+# Ignore temporary files
+*.tmp
+*.swp
+*.swo
+
+# Ignore OS files
+Thumbs.db
+.DS_Store
