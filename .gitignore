@@ -1,5 +1,5 @@
 # Ignore local history folder (old versions of BRD files)
-BRD/history/
+brd/history/
 
 # Ignore temporary files
 *.tmp
