@@ -37,6 +37,6 @@ Google Docs (заказчик пишет замечания)
 
 | Документ | Google Docs | Локальный файл |
 |---|---|---|
-| Описание бизнеса | https://docs.google.com/document/d/1pFtPhzIiRICVLKfWMNwVQ0pG-NptcvcA5umQFmlzpkQ/edit | `BRD/opening_Business_YYYY_MM_DD.md` |
-| Список отчётов | https://docs.google.com/document/d/1T6fcswMsTK06jPWgKkhowon3NPqDbaHyApWYxQe-41s/edit | `BRD/opening_Reports_YYYY_MM_DD.md` |
+| Описание бизнеса | https://docs.google.com/document/d/1pFtPhzIiRICVLKfWMNwVQ0pG-NptcvcA5umQFmlzpkQ/edit | `brd/from_public/opening_Business.docx` |
+| Список отчётов | https://docs.google.com/document/d/1T6fcswMsTK06jPWgKkhowon3NPqDbaHyApWYxQe-41s/edit | `brd/from_public/opening_Reports.docx` |
 | Ключевые контакты | https://docs.google.com/document/d/1jSXiU_BF9eci5XVUPK4t3P469_8Aznc8sxTpNsGsmtE/edit | — |

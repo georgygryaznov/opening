@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bitrix24 mockups — финансовые отчёты ГК «Открытие»</title>
+  <style>
+    :root {
+      --b24-blue: #2fc6f6;
+      --b24-dark: #243447;
+      --bg: #eef3f7;
+      --card: #ffffff;
+      --text: #263238;
+      --muted: #7b8794;
+      --green: #2fc06f;
+      --yellow: #f7b731;
+      --red: #ef5350;
+      --line: #dbe4eb;
+      --shadow: 0 10px 28px rgba(36, 52, 71, .12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      font: 14px/1.45 "Inter", "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+    }
+    .deck {
+      width: 1440px;
+      margin: 0 auto;
+      background: #f5f8fb;
+    }
+    .screen {
+      width: 1440px;
+      height: 980px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      background: #f3f7fb;
+      page-break-after: always;
+      overflow: hidden;
+    }
+    .sidebar {
+      background: #172b3f;
+      color: #8da2b6;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+    .logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--b24-blue), #1a9bd7);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      margin-bottom: 12px;
+    }
+    .navicon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,.06);
+      font-size: 18px;
+    }
+    .navicon.active { background: var(--b24-blue); color: white; }
+    .main {
+      display: grid;
+      grid-template-rows: 72px 1fr;
+      min-width: 0;
+    }
+    .topbar {
+      background: #fff;
+      box-shadow: 0 1px 0 var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 34px;
+    }
+    .crumbs { color: var(--muted); font-size: 13px; }
+    .title {
+      font-size: 26px;
+      font-weight: 750;
+      color: #182536;
+      margin: 2px 0 0;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .chip, .btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 18px;
+      padding: 8px 14px;
+      color: #41566b;
+      font-weight: 600;
+    }
+    .btn.primary {
+      background: var(--b24-blue);
+      border-color: var(--b24-blue);
+      color: #fff;
+      border-radius: 10px;
+    }
+    .content {
+      padding: 26px 34px 34px;
+      overflow: hidden;
+    }
+    .grid { display: grid; gap: 18px; }
+    .kpis { grid-template-columns: repeat(4, 1fr); }
+    .kpis8 { grid-template-columns: repeat(8, 1fr); }
+    .kpis8 .kpi { min-height: 118px; padding: 14px; }
+    .kpis8 .kpi .value { font-size: 24px; letter-spacing: -.5px; }
+    .kpis8 .kpi .label, .kpis8 .kpi .delta { font-size: 12px; }
+    .two { grid-template-columns: 1.25fr .75fr; }
+    .two-even { grid-template-columns: 1fr 1fr; }
+    .three { grid-template-columns: repeat(3, 1fr); }
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(219, 228, 235, .75);
+      padding: 18px;
+      min-width: 0;
+    }
+    .card h3 {
+      margin: 0 0 14px;
+      font-size: 17px;
+      color: #1d2b3a;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hint { color: var(--muted); font-size: 12px; font-weight: 500; }
+    .kpi {
+      min-height: 128px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi:after {
+      content: "";
+      position: absolute;
+      right: -24px;
+      bottom: -30px;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      opacity: .12;
+      background: currentColor;
+    }
+    .kpi .label { color: var(--muted); font-weight: 650; }
+    .kpi .value { font-size: 31px; font-weight: 800; margin: 8px 0 4px; letter-spacing: -.8px; }
+    .kpi .delta { font-weight: 700; }
+    .green { color: var(--green); }
+    .yellow { color: var(--yellow); }
+    .red { color: var(--red); }
+    .blue { color: #2196d3; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 13px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    th {
+      background: #f1f6fa;
+      color: #587086;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+    }
+    td {
+      padding: 10px 12px;
+      border-top: 1px solid #edf2f6;
+      background: #fff;
+      white-space: nowrap;
+    }
+    tr.total td { background: #edf9ff; font-weight: 800; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .pill.green { background: var(--green); color: #fff; }
+    .pill.yellow { background: var(--yellow); color: #fff; }
+    .pill.red { background: var(--red); color: #fff; }
+    .bars { display: grid; gap: 12px; margin-top: 10px; }
+    .barrow {
+      display: grid;
+      grid-template-columns: 135px 1fr 70px;
+      gap: 10px;
+      align-items: center;
+    }
+    .track {
+      height: 12px;
+      background: #e9f0f5;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .fill { height: 100%; border-radius: inherit; background: var(--b24-blue); }
+    .fill.green { background: var(--green); }
+    .fill.yellow { background: var(--yellow); }
+    .fill.red { background: var(--red); }
+    .chart {
+      height: 250px;
+      display: flex;
+      align-items: end;
+      justify-content: space-around;
+      padding: 18px 8px 6px;
+      border-left: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      gap: 12px;
+    }
+    .col {
+      width: 34px;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, var(--b24-blue), #168bc9);
+      position: relative;
+    }
+    .col.alt { background: linear-gradient(180deg, var(--green), #159957); }
+    .col.warn { background: linear-gradient(180deg, var(--yellow), #e89a16); }
+    .col.bad { background: linear-gradient(180deg, var(--red), #d63434); }
+    .col span {
+      position: absolute;
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .linechart {
+      height: 235px;
+      background:
+        linear-gradient(#eef4f8 1px, transparent 1px) 0 0 / 100% 46px,
+        linear-gradient(90deg, #eef4f8 1px, transparent 1px) 0 0 / 110px 100%;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .linechart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .legend { display: flex; gap: 18px; margin-top: 12px; color: var(--muted); font-size: 12px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .filter {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #496174;
+      font-weight: 700;
+      min-width: 145px;
+      box-shadow: 0 4px 12px rgba(36,52,71,.06);
+    }
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+    .bucket {
+      border-radius: 16px;
+      padding: 14px;
+      background: #f8fbfd;
+      border: 1px solid var(--line);
+      min-height: 165px;
+    }
+    .bucket h4 { margin: 0 0 10px; }
+    .debt {
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 10px rgba(36,52,71,.07);
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .day {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      min-height: 102px;
+      padding: 10px;
+      position: relative;
+    }
+    .day .num { font-weight: 800; color: #536b80; }
+    .amount { position: absolute; bottom: 10px; left: 10px; right: 10px; font-weight: 800; }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: #eef4f8;
+      color: #60798f;
+      font-size: 12px;
+      font-weight: 750;
+    }
+    .note {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: #7a5b00;
+      font-weight: 650;
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .flowbox {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fbfdff;
+    }
+    .flowbox strong { display: block; font-size: 22px; margin-top: 8px; }
+    @media print {
+      .deck, .screen { width: 1440px; }
+      body { background: white; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <section class="screen">
+      <aside class="sidebar">
+        <div class="logo">B24</div>
+        <div class="navicon active">▦</div><div class="navicon">₽</div><div class="navicon">↕</div><div class="navicon">◫</div><div class="navicon">!</div><div class="navicon">☷</div>
+      </aside>
+      <main class="main">
+        <header class="topbar">
+          <div><div class="crumbs">ГК «Открытие» / Управленческая отчётность / 1 очередь</div><div class="title">Сводный Dashboard собственника</div></div>
+          <div class="actions"><div class="chip">Май 2026</div><div class="chip">Все 6 юрлиц</div><div class="btn primary">Обновить данные</div></div>
+        </header>
+        <div class="content">
+          <div class="grid kpis8">
+            <div class="card kpi green"><div class="label">Выручка, план/факт</div><div class="value">84,2 млн ₽</div><div class="delta">+7,4% к плану</div></div>
+            <div class="card kpi yellow"><div class="label">Валовая маржа</div><div class="value">19,8%</div><div class="delta">зона внимания</div></div>
+            <div class="card kpi green"><div class="label">Чистая прибыль</div><div class="value">6,7 млн ₽</div><div class="delta">+1,1 млн ₽ MoM</div></div>
+            <div class="card kpi red"><div class="label">Остаток ДС</div><div class="value">0,8 млн ₽</div><div class="delta">риск кассового разрыва</div></div>
+            <div class="card kpi green"><div class="label">Cash Flow недели</div><div class="value">+2,3 млн ₽</div><div class="delta">приток выше выплат</div></div>
+            <div class="card kpi yellow"><div class="label">Дебиторка</div><div class="value">18,4 млн ₽</div><div class="delta">4,1 млн ₽ &gt; 60 дней</div></div>
+            <div class="card kpi yellow"><div class="label">Кредиторка</div><div class="value">12,6 млн ₽</div><div class="delta">пик выплат 24 мая</div></div>
+            <div class="card kpi green"><div class="label">План-факт расходов</div><div class="value">−3,2%</div><div class="delta">в пределах нормы</div></div>
+          </div>
+          <div class="grid two" style="margin-top:18px;">
+            <div class="card">
+              <h3>Выручка и прибыль <span class="hint">drill-down: юрлицо → клиент → заказ</span></h3>
+              <div class="linechart">
+                <svg viewBox="0 0 760 235" preserveAspectRatio="none">
+                  <polyline points="20,185 120,166 220,130 320,142 420,98 520,82 650,48 740,36" fill="none" stroke="#2fc6f6" stroke-width="5" stroke-linecap="round"/>
+                  <polyline points="20,205 120,190 220,174 320,168 420,135 520,126 650,102 740,94" fill="none" stroke="#2fc06f" stroke-width="5" stroke-linecap="round"/>
+                  <polyline points="20,170 120,155 220,145 320,128 420,110 520,88 650,75 740,58" fill="none" stroke="#f7b731" stroke-width="4" stroke-dasharray="10 10" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="legend"><span><i class="dot" style="background:#2fc6f6"></i>выручка</span><span><i class="dot" style="background:#2fc06f"></i>прибыль</span><span><i class="dot" style="background:#f7b731"></i>план</span></div>
+            </div>
+            <div class="card">
+              <h3>Финансовая карта ГК <span class="hint">по юрлицам</span></h3>
+              <table>
+                <thead><tr><th>Юрлицо</th><th>Выручка</th><th>Маржа</th><th>ДЗ</th><th>Статус</th></tr></thead>
+                <tbody>
+                  <tr><td>ООО «Открытие»</td><td>31,4</td><td>22%</td><td>6,2</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>Открытие Тюмень</td><td>18,7</td><td>16%</td><td>4,4</td><td><span class="pill yellow">риск</span></td></tr>
+                  <tr><td>Открытие Пермь</td><td>14,1</td><td>13%</td><td>3,7</td><td><span class="pill red">проблема</span></td></tr>
+                  <tr><td>ИП Зиновьев</td><td>8,9</td><td>24%</td><td>1,8</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>ИП Семенов</td><td>6,4</td><td>18%</td><td>1,5</td><td><span class="pill yellow">риск</span></td></tr>
+                  <tr><td>ИП Ушакова</td><td>4,7</td><td>26%</td><td>0,8</td><td><span class="pill green">норма</span></td></tr>
+                  <tr class="total"><td>Итого ГК</td><td>84,2</td><td>19,8%</td><td>18,4</td><td><span class="pill yellow">контроль</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="grid three" style="margin-top:18px;">
+            <div class="card"><h3>Cash Flow</h3><div class="chart"><div class="col" style="height:74%"><span>Пн</span></div><div class="col alt" style="height:61%"><span>Вт</span></div><div class="col warn" style="height:48%"><span>Ср</span></div><div class="col bad" style="height:33%"><span>Чт</span></div><div class="col alt" style="height:69%"><span>Пт</span></div></div></div>
+            <div class="card"><h3>ДЗ по срокам</h3><div class="bars"><div class="barrow"><span>0–15 дней</span><div class="track"><div class="fill green" style="width:68%"></div></div><b>8,1</b></div><div class="barrow"><span>16–30 дней</span><div class="track"><div class="fill yellow" style="width:42%"></div></div><b>3,9</b></div><div class="barrow"><span>31–60 дней</span><div class="track"><div class="fill yellow" style="width:31%"></div></div><b>2,3</b></div><div class="barrow"><span>61–90 дней</span><div class="track"><div class="fill red" style="width:26%"></div></div><b>1,6</b></div><div class="barrow"><span>90+ дней</span><div class="track"><div class="fill red" style="width:38%"></div></div><b>2,5</b></div></div></div>
+            <div class="card"><h3>Следующие платежи</h3><table><tbody><tr><td>17.05</td><td>ФОТ</td><td><b>2,1 млн</b></td></tr><tr><td>20.05</td><td>Аренда</td><td><b>0,7 млн</b></td></tr><tr><td>24.05</td><td>Кредит</td><td><b class="red">3,2 млн</b></td></tr><tr><td>28.05</td><td>Налоги</td><td><b>1,4 млн</b></td></tr></tbody></table><div class="note" style="margin-top:12px;">Прогнозный остаток 24.05: −0,6 млн ₽</div></div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon active">₽</div><div class="navicon">↕</div><div class="navicon">◫</div><div class="navicon">!</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.1</div><div class="title">ОПиУ / P&L</div></div><div class="actions"><div class="chip">Май 2026</div><div class="chip">Консолидация ГК</div><div class="btn primary">Провалиться в детализацию</div></div></header>
+        <div class="content">
+          <div class="filters"><div class="filter">Период: месяц</div><div class="filter">Юрлицо: все</div><div class="filter">Метод: отгрузка</div><div class="filter">Внутригрупповые: исключены</div></div>
+          <div class="grid kpis">
+            <div class="card kpi green"><div class="label">Выручка</div><div class="value">84,2 млн ₽</div><div class="delta">+12% YoY</div></div>
+            <div class="card kpi yellow"><div class="label">Валовая прибыль</div><div class="value">16,7 млн ₽</div><div class="delta">маржа 19,8%</div></div>
+            <div class="card kpi green"><div class="label">EBITDA</div><div class="value">9,4 млн ₽</div><div class="delta">11,2% от выручки</div></div>
+            <div class="card kpi green"><div class="label">Чистая прибыль</div><div class="value">6,7 млн ₽</div><div class="delta">+1,1 млн MoM</div></div>
+          </div>
+          <div class="grid two" style="margin-top:18px;">
+            <div class="card">
+              <h3>P&L по юрлицам <span class="hint">клик на выручку → клиенты → заказы</span></h3>
+              <table>
+                <thead><tr><th>Юрлицо</th><th>Выручка</th><th>Себестоимость</th><th>Вал. прибыль</th><th>Маржа</th><th>EBITDA</th><th>Статус</th></tr></thead>
+                <tbody>
+                  <tr><td>ООО «Открытие»</td><td>31,4</td><td>24,5</td><td>6,9</td><td>22%</td><td>4,0</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>Открытие Тюмень</td><td>18,7</td><td>15,7</td><td>3,0</td><td>16%</td><td>1,6</td><td><span class="pill yellow">риск</span></td></tr>
+                  <tr><td>Открытие Пермь</td><td>14,1</td><td>12,3</td><td>1,8</td><td>13%</td><td>0,5</td><td><span class="pill red">низкая маржа</span></td></tr>
+                  <tr><td>ИП Зиновьев</td><td>8,9</td><td>6,8</td><td>2,1</td><td>24%</td><td>1,4</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>ИП Семенов</td><td>6,4</td><td>5,2</td><td>1,2</td><td>18%</td><td>0,8</td><td><span class="pill yellow">риск</span></td></tr>
+                  <tr><td>ИП Ушакова</td><td>4,7</td><td>3,5</td><td>1,2</td><td>26%</td><td>1,1</td><td><span class="pill green">норма</span></td></tr>
+                  <tr class="total"><td>Итого ГК</td><td>84,2</td><td>68,4</td><td>16,7</td><td>19,8%</td><td>9,4</td><td><span class="pill yellow">контроль</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3>Структура прибыли</h3>
+              <div class="bars">
+                <div class="barrow"><span>Выручка</span><div class="track"><div class="fill" style="width:100%"></div></div><b>84,2</b></div>
+                <div class="barrow"><span>Себестоимость</span><div class="track"><div class="fill red" style="width:81%"></div></div><b>68,4</b></div>
+                <div class="barrow"><span>Валовая прибыль</span><div class="track"><div class="fill yellow" style="width:20%"></div></div><b>16,7</b></div>
+                <div class="barrow"><span>Комм. расходы</span><div class="track"><div class="fill red" style="width:6%"></div></div><b>5,1</b></div>
+                <div class="barrow"><span>Упр. расходы</span><div class="track"><div class="fill red" style="width:3%"></div></div><b>2,2</b></div>
+                <div class="barrow"><span>EBITDA</span><div class="track"><div class="fill green" style="width:11%"></div></div><b>9,4</b></div>
+              </div>
+              <div class="note" style="margin-top:18px;">Отдельный KPI: менеджерский результат по оплатам, чтобы не смешивать P&L и Cash Flow.</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon">₽</div><div class="navicon active">↕</div><div class="navicon">◫</div><div class="navicon">!</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.2</div><div class="title">ОДДС / Cash Flow</div></div><div class="actions"><div class="chip">План vs факт</div><div class="chip">Ежедневно</div><div class="btn primary">Открыть документы</div></div></header>
+        <div class="content">
+          <div class="grid kpis">
+            <div class="card kpi green"><div class="label">Операционный поток</div><div class="value">+5,8 млн ₽</div><div class="delta">основная деятельность</div></div>
+            <div class="card kpi red"><div class="label">Инвестиционный поток</div><div class="value">−1,6 млн ₽</div><div class="delta">кап. вложения</div></div>
+            <div class="card kpi yellow"><div class="label">Финансовый поток</div><div class="value">−1,9 млн ₽</div><div class="delta">кредиты/лизинг</div></div>
+            <div class="card kpi green"><div class="label">Чистый поток</div><div class="value">+2,3 млн ₽</div><div class="delta">за неделю</div></div>
+          </div>
+          <div class="grid two-even" style="margin-top:18px;">
+            <div class="card">
+              <h3>План / факт по категориям <span class="hint">отклонение &gt; 10% подсвечивается</span></h3>
+              <table>
+                <thead><tr><th>Категория</th><th>План</th><th>Факт</th><th>Откл.</th><th>Статус</th></tr></thead>
+                <tbody>
+                  <tr><td>Поступления от продаж</td><td>28,0</td><td>30,4</td><td>+8,6%</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>Закуп товара</td><td>16,0</td><td>18,5</td><td>+15,6%</td><td><span class="pill red">разбор</span></td></tr>
+                  <tr><td>ФОТ</td><td>3,2</td><td>3,1</td><td>−3,1%</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>Аренда</td><td>0,7</td><td>0,7</td><td>0%</td><td><span class="pill green">норма</span></td></tr>
+                  <tr><td>Налоги</td><td>1,2</td><td>1,5</td><td>+25%</td><td><span class="pill red">разбор</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card">
+              <h3>Динамика Cash Flow</h3>
+              <div class="chart"><div class="col alt" style="height:80%"><span>Поступ.</span></div><div class="col bad" style="height:66%"><span>Выпл.</span></div><div class="col alt" style="height:45%"><span>Опер.</span></div><div class="col bad" style="height:22%"><span>Инв.</span></div><div class="col warn" style="height:28%"><span>Фин.</span></div><div class="col alt" style="height:35%"><span>Итог</span></div></div>
+              <div class="note" style="margin-top:28px;">Drill-down: категория расхода → документ 1С → контрагент → назначение платежа.</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon">₽</div><div class="navicon">↕</div><div class="navicon active">◫</div><div class="navicon">!</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.3</div><div class="title">Управленческий баланс</div></div><div class="actions"><div class="chip">На 31.05.2026</div><div class="chip">Предварительные данные</div><div class="btn primary">Сверка с 1С</div></div></header>
+        <div class="content">
+          <div class="grid kpis">
+            <div class="card kpi blue"><div class="label">Активы</div><div class="value">74,6 млн ₽</div><div class="delta">ДС + запасы + ДЗ</div></div>
+            <div class="card kpi yellow"><div class="label">Обязательства</div><div class="value">38,1 млн ₽</div><div class="delta">КЗ + кредиты</div></div>
+            <div class="card kpi green"><div class="label">Собственный капитал</div><div class="value">36,5 млн ₽</div><div class="delta">контроль баланса</div></div>
+            <div class="card kpi yellow"><div class="label">CCC</div><div class="value">47 дней</div><div class="delta">30–60 дней</div></div>
+          </div>
+          <div class="grid two-even" style="margin-top:18px;">
+            <div class="card">
+              <h3>Активы</h3>
+              <table><thead><tr><th>Статья</th><th>Сумма</th><th>Доля</th><th>Статус</th></tr></thead><tbody>
+                <tr><td>Денежные средства</td><td>0,8 млн</td><td>1%</td><td><span class="pill red">мало</span></td></tr>
+                <tr><td>Товарные запасы</td><td>32,4 млн</td><td>43%</td><td><span class="pill yellow">контроль</span></td></tr>
+                <tr><td>Дебиторская задолженность</td><td>18,4 млн</td><td>25%</td><td><span class="pill yellow">контроль</span></td></tr>
+                <tr><td>Основные средства</td><td>23,0 млн</td><td>31%</td><td><span class="pill green">норма</span></td></tr>
+                <tr class="total"><td>Активы всего</td><td>74,6 млн</td><td>100%</td><td></td></tr>
+              </tbody></table>
+            </div>
+            <div class="card">
+              <h3>Обязательства и капитал</h3>
+              <table><thead><tr><th>Статья</th><th>Сумма</th><th>Доля</th><th>Статус</th></tr></thead><tbody>
+                <tr><td>Кредиторская задолженность</td><td>12,6 млн</td><td>17%</td><td><span class="pill yellow">контроль</span></td></tr>
+                <tr><td>Кредиты и займы</td><td>25,5 млн</td><td>34%</td><td><span class="pill yellow">контроль</span></td></tr>
+                <tr><td>Собственный капитал</td><td>36,5 млн</td><td>49%</td><td><span class="pill green">норма</span></td></tr>
+                <tr class="total"><td>Пассивы всего</td><td>74,6 млн</td><td>100%</td><td><span class="pill green">сходится</span></td></tr>
+              </tbody></table>
+              <div class="note" style="margin-top:18px;">ОС, кредиты и капитал подключаются из УТ только при наличии данных; иначе нужен дополнительный источник.</div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:18px;"><h3>Cash Conversion Cycle</h3><div class="flow"><div class="flowbox">Запасы, DIO<strong>38 дней</strong></div><div class="flowbox">Дебиторка, DSO<strong>24 дня</strong></div><div class="flowbox">Кредиторка, DPO<strong>15 дней</strong></div><div class="flowbox">CCC = DIO + DSO − DPO<strong class="yellow">47 дней</strong></div></div></div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon">₽</div><div class="navicon">↕</div><div class="navicon">◫</div><div class="navicon active">!</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.4</div><div class="title">Дебиторская задолженность</div></div><div class="actions"><div class="chip">DSO: 24 дня</div><div class="chip">18,4 млн ₽</div><div class="btn primary">Назначить ответственного</div></div></header>
+        <div class="content">
+          <div class="grid kpis">
+            <div class="card kpi green"><div class="label">0–15 дней</div><div class="value">8,1 млн ₽</div><div class="delta">норма</div></div>
+            <div class="card kpi yellow"><div class="label">16–60 дней</div><div class="value">6,2 млн ₽</div><div class="delta">контроль</div></div>
+            <div class="card kpi red"><div class="label">60+ дней</div><div class="value">4,1 млн ₽</div><div class="delta">просрочка</div></div>
+            <div class="card kpi yellow"><div class="label">DSO</div><div class="value">24 дня</div><div class="delta">+3 дня MoM</div></div>
+          </div>
+          <div class="card" style="margin-top:18px;">
+            <h3>Просрочка по бакетам <span class="hint">клик на клиента → документы реализации</span></h3>
+            <div class="kanban">
+              <div class="bucket"><h4 class="green">0–15 дней</h4><div class="debt">СтройМаркет<br><b>2,4 млн ₽</b></div><div class="debt">Партнёр-72<br><b>1,8 млн ₽</b></div></div>
+              <div class="bucket"><h4 class="yellow">16–30 дней</h4><div class="debt">РегионСнаб<br><b>1,3 млн ₽</b></div><div class="debt">ДомКомплект<br><b>0,9 млн ₽</b></div></div>
+              <div class="bucket"><h4 class="yellow">31–60 дней</h4><div class="debt">УралСтрой<br><b>1,6 млн ₽</b></div><div class="debt">ПрофСклад<br><b>0,7 млн ₽</b></div></div>
+              <div class="bucket"><h4 class="red">61–90 дней</h4><div class="debt">ТехноДом<br><b>1,1 млн ₽</b></div><div class="debt">СеверСнаб<br><b>0,5 млн ₽</b></div></div>
+              <div class="bucket"><h4 class="red">90+ дней</h4><div class="debt">Монолит<br><b>1,7 млн ₽</b></div><div class="debt">АльфаСтрой<br><b>0,8 млн ₽</b></div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:18px;">
+            <h3>Топ клиентов по риску</h3>
+            <table><thead><tr><th>Контрагент</th><th>Юрлицо-кредитор</th><th>Долг</th><th>Дней просрочки</th><th>Ответственный</th><th>Статус</th></tr></thead><tbody>
+              <tr><td>Монолит</td><td>ООО «Открытие»</td><td>1,7 млн</td><td>104</td><td>Иванов</td><td><span class="pill red">срочно</span></td></tr>
+              <tr><td>ТехноДом</td><td>Открытие Пермь</td><td>1,1 млн</td><td>74</td><td>Петров</td><td><span class="pill red">срочно</span></td></tr>
+              <tr><td>РегионСнаб</td><td>Открытие Тюмень</td><td>1,3 млн</td><td>27</td><td>Сидоров</td><td><span class="pill yellow">контроль</span></td></tr>
+            </tbody></table>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon">₽</div><div class="navicon active">↕</div><div class="navicon">☷</div><div class="navicon">!</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.5</div><div class="title">Платёжный календарь</div></div><div class="actions"><div class="chip">Прогноз 4 недели</div><div class="chip red">Риск 24.05</div><div class="btn primary">Согласовать платежи</div></div></header>
+        <div class="content">
+          <div class="grid kpis">
+            <div class="card kpi red"><div class="label">Текущий остаток ДС</div><div class="value">0,8 млн ₽</div><div class="delta">ниже порога</div></div>
+            <div class="card kpi green"><div class="label">План поступлений</div><div class="value">9,6 млн ₽</div><div class="delta">14 дней</div></div>
+            <div class="card kpi yellow"><div class="label">План выплат</div><div class="value">10,9 млн ₽</div><div class="delta">14 дней</div></div>
+            <div class="card kpi red"><div class="label">Мин. остаток</div><div class="value">−0,6 млн ₽</div><div class="delta">кассовый разрыв</div></div>
+          </div>
+          <div class="grid two" style="margin-top:18px;">
+            <div class="card">
+              <h3>Календарная сетка платежей</h3>
+              <div class="calendar">
+                <div class="day"><div class="num">13</div><span class="tag green">+1,2</span><div class="amount green">+0,9 млн</div></div>
+                <div class="day"><div class="num">14</div><span class="tag">закуп</span><div class="amount">−1,4 млн</div></div>
+                <div class="day"><div class="num">15</div><span class="tag green">+2,0</span><div class="amount green">+1,6 млн</div></div>
+                <div class="day"><div class="num">16</div><span class="tag">ФОТ</span><div class="amount">−2,1 млн</div></div>
+                <div class="day"><div class="num">17</div><span class="tag">налоги</span><div class="amount">−1,4 млн</div></div>
+                <div class="day"><div class="num">18</div><span class="tag green">+0,8</span><div class="amount green">+0,5 млн</div></div>
+                <div class="day"><div class="num">19</div><span class="tag">аренда</span><div class="amount">−0,7 млн</div></div>
+                <div class="day"><div class="num">20</div><span class="tag green">+1,8</span><div class="amount green">+1,1 млн</div></div>
+                <div class="day"><div class="num">21</div><span class="tag">закуп</span><div class="amount">−2,0 млн</div></div>
+                <div class="day"><div class="num">22</div><span class="tag green">+2,5</span><div class="amount green">+2,0 млн</div></div>
+                <div class="day"><div class="num">23</div><span class="tag">лизинг</span><div class="amount">−0,8 млн</div></div>
+                <div class="day" style="border-color:#ef5350; background:#fff1f1"><div class="num red">24</div><span class="tag red">кредит</span><div class="amount red">−3,2 млн</div></div>
+                <div class="day"><div class="num">25</div><span class="tag green">+1,3</span><div class="amount green">+0,7 млн</div></div>
+                <div class="day"><div class="num">26</div><span class="tag">резерв</span><div class="amount">0 млн</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Прогноз остатка ДС</h3>
+              <div class="linechart">
+                <svg viewBox="0 0 500 235" preserveAspectRatio="none">
+                  <line x1="0" y1="160" x2="500" y2="160" stroke="#ef5350" stroke-width="2" stroke-dasharray="8 8"/>
+                  <polyline points="10,95 70,80 130,128 190,110 250,145 310,188 370,125 430,102 490,84" fill="none" stroke="#2fc6f6" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="note" style="margin-top:18px;">24.05 прогнозный остаток ниже нуля. Варианты: перенести платёж, ускорить сбор ДЗ, привлечь финансирование.</div>
+              <table style="margin-top:14px;"><tbody><tr><td>Входящий остаток</td><td><b>0,8 млн ₽</b></td></tr><tr><td>Поступления 14 дней</td><td><b class="green">+9,6 млн ₽</b></td></tr><tr><td>Выплаты 14 дней</td><td><b class="red">−10,9 млн ₽</b></td></tr><tr><td>Минимальный остаток</td><td><b class="red">−0,6 млн ₽</b></td></tr></tbody></table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+
+    <section class="screen">
+      <aside class="sidebar"><div class="logo">B24</div><div class="navicon">▦</div><div class="navicon">₽</div><div class="navicon">↕</div><div class="navicon">◫</div><div class="navicon active">☷</div></aside>
+      <main class="main">
+        <header class="topbar"><div><div class="crumbs">Финансы / Отчёт 1.6</div><div class="title">План-фактный анализ</div></div><div class="actions"><div class="chip">Май 2026</div><div class="chip">Отклонение &gt; 10%</div><div class="btn primary">Запросить причину</div></div></header>
+        <div class="content">
+          <div class="grid kpis">
+            <div class="card kpi green"><div class="label">Выручка</div><div class="value">+7,4%</div><div class="delta">выше плана</div></div>
+            <div class="card kpi red"><div class="label">Закуп товара</div><div class="value">+15,6%</div><div class="delta">требует причины</div></div>
+            <div class="card kpi yellow"><div class="label">Логистика</div><div class="value">+8,9%</div><div class="delta">контроль</div></div>
+            <div class="card kpi green"><div class="label">ФОТ</div><div class="value">−3,1%</div><div class="delta">в норме</div></div>
+          </div>
+          <div class="card" style="margin-top:18px;">
+            <h3>План-факт по показателям <span class="hint">обязательная причина при отклонении &gt; 10%</span></h3>
+            <table>
+              <thead><tr><th>Показатель</th><th>План</th><th>Факт</th><th>Отклонение</th><th>Ответственный</th><th>Причина</th><th>Статус</th></tr></thead>
+              <tbody>
+                <tr><td>Выручка</td><td>78,4</td><td>84,2</td><td>+7,4%</td><td>Коммерческий директор</td><td>Рост среднего чека</td><td><span class="pill green">норма</span></td></tr>
+                <tr><td>Закуп товара</td><td>16,0</td><td>18,5</td><td>+15,6%</td><td>Руководитель закупок</td><td>Не заполнено</td><td><span class="pill red">нужна причина</span></td></tr>
+                <tr><td>Логистика</td><td>3,7</td><td>4,0</td><td>+8,9%</td><td>Логист</td><td>Дальние маршруты</td><td><span class="pill yellow">контроль</span></td></tr>
+                <tr><td>ФОТ</td><td>3,2</td><td>3,1</td><td>−3,1%</td><td>HR/бухгалтерия</td><td>Вакансии</td><td><span class="pill green">норма</span></td></tr>
+                <tr><td>Налоги</td><td>1,2</td><td>1,5</td><td>+25%</td><td>Бухгалтерия</td><td>Уточнить базу</td><td><span class="pill red">разбор</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid two-even" style="margin-top:18px;">
+            <div class="card"><h3>Run rate прогноза выручки</h3><div class="linechart"><svg viewBox="0 0 590 235" preserveAspectRatio="none"><polyline points="20,190 90,176 160,158 230,139 300,110 370,84 440,62 520,42 580,30" fill="none" stroke="#2fc6f6" stroke-width="5"/><polyline points="20,180 90,165 160,150 230,135 300,120 370,105 440,90 520,75 580,62" fill="none" stroke="#f7b731" stroke-width="4" stroke-dasharray="10 10"/></svg></div><div class="legend"><span><i class="dot" style="background:#2fc6f6"></i>факт + прогноз</span><span><i class="dot" style="background:#f7b731"></i>план</span></div></div>
+            <div class="card"><h3>Задачи ответственным</h3><table><tbody><tr><td>Закуп товара +15,6%</td><td><span class="pill red">до 16.05</span></td></tr><tr><td>Налоги +25%</td><td><span class="pill red">до 16.05</span></td></tr><tr><td>Логистика +8,9%</td><td><span class="pill yellow">контроль</span></td></tr><tr><td>ДЗ 90+ дней</td><td><span class="pill red">срочно</span></td></tr></tbody></table><div class="note" style="margin-top:14px;">Bitrix24-задачи создаются автоматически при превышении порога.</div></div>
+          </div>
+        </div>
+      </main>
+    </section>
+  </div>
+</body>
+</html>
